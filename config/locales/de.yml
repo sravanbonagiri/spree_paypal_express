@@ -8,7 +8,7 @@ de:
   paypal_capture_complete: Paypal Transaktion vollständig durchgeführt.
   unable_to_capture_paypal: Paypal Transaktion konnte nicht durchgeführt werden.
   signature: Signatur
-  order_not_yet_placed: "Ihre Bestellung wurde <strong>NICHT</strong> abgeschlossen werden, bitte überprüfen sie die Details und klicken erneut <strong>Bestellung abschließen</strong>."
+  order_not_yet_placed: "Ihre Bestellung wurde <strong>noch nicht</strong> abgeschlossen, bitte überprüfen Sie Ihre Bestellung noch einmal und klicken Sie anschließend auf <strong>Bestellung abschließen</strong>."
   paypal_payment_id: PayPal Zahlungs ID
   pending_reason: Pending Reason
   result: Ergebnis
