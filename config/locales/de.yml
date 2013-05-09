@@ -12,10 +12,10 @@ de:
   paypal_payment_id: PayPal Zahlungs ID
   pending_reason: Pending Reason
   result: Ergebnis
-  review: Bewertung
+  review: Nutzer nach eingabe der Bezahldaten auf Spree Seite zurückleiten wo Bestellung erneut bestätigt werden muss
   no_shipping: Keine Versandkosten
-  cart_checkout: Warenkorb bezahlen
-  allow_guest_checkout: Gastzahlung erlauben
+  cart_checkout: Checkout direkt aus Warenkorb über Paypal erlauben
+  allow_guest_checkout: Checkout für Gäste erlauben
   paypal_account: PayPal Konto
   payer_id: Bezahler ID
   payer_country: Land
