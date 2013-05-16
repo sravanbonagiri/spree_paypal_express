@@ -1,0 +1,9 @@
+---
+it:
+  ipn_transaction: "Transazione IPN"
+  unknown_transaction: "Transazione sconosciuta"
+  edit_paypal_info: "Modifica Pagamento Paypal Express"
+  paypal_payment: "Pagamento Paypal Express"
+  paypal_txn_id: "Codice Transazione"
+  paypal_capture_complete:
+  unable_to_capture_paypal:
