@@ -69,10 +69,15 @@ module Spree
 
         #TODO Search for existing records
 
-        Spree::PaypalAccount.create(:email => @ppx_details.params["payer"],
+        @paypal_account = Spree::PaypalAccount.create(:email => @ppx_details.params["payer"],
                                     :payer_id => @ppx_details.params["payer_id"],
                                     :payer_country => @ppx_details.params["payer_country"],
                                     :payer_status => @ppx_details.params["payer_status"])
+
+        @payment = @order.payments.create(
+          :source => @paypal_account,
+          :source_type => 'Spree::PaypalAccount',
+          :payment_method_id => params[:payment_method_id])
 
         if Spree::Config[:shipping_instructions]
           @order.special_instructions = @ppx_details.params["note"]
@@ -134,19 +139,21 @@ module Spree
 
       opts = { :token => params[:token], :payer_id => params[:PayerID] }.merge all_opts(@order, params[:payment_method_id], 'payment' )
       gateway = paypal_gateway
+      payment = Spree::Payment.where(:order_id => @order, :id => params[:payment_id]).first
+
 
       method = Spree::Config[:auto_capture] ? :purchase : :authorize
       ppx_auth_response = gateway.send(method, (@order.total*100).to_i, opts)
 
       paypal_account = Spree::PaypalAccount.find_by_payer_id(params[:PayerID])
-
-      payment = @order.payments.create(
-        :amount => ppx_auth_response.params["gross_amount"].to_f,
-        :source => paypal_account,
-        :source_type => 'Spree::PaypalAccount',
-        :payment_method_id => params[:payment_method_id],
-        :response_code => ppx_auth_response.authorization,
-        :avs_response => ppx_auth_response.avs_result["code"])
+      
+        payment.amount = ppx_auth_response.params["gross_amount"].to_f
+        payment.source = paypal_account
+        payment.source_type = 'Spree::PaypalAccount'
+        payment.payment_method_id = params[:payment_method_id]
+        payment.response_code = ppx_auth_response.authorization
+        payment.avs_response = ppx_auth_response.avs_result["code"]
+        payment.save
 
       payment.started_processing!
 
