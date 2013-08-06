@@ -194,7 +194,7 @@ module Spree
     private
 
     def asset_url(_path)
-      URI::HTTP.build(:path => ActionController::Base.helpers.asset_path(_path), :host => Spree::Config[:site_url].strip).to_s
+      URI::HTTP.build(:path => ActionController::Base.helpers.asset_path(_path), :host => URI(Spree::Config[:site_url].strip).host).to_s
     end
 
     def record_log(payment, response)
